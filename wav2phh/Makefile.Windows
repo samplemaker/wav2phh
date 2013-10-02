@@ -1,0 +1,28 @@
+CC     = i686-w64-mingw32-gcc
+CFLAGS = -std=gnu99 -Wall -Wextra -O2 -m32
+# dynamic libs
+LIBDYN = libsndfile-1.dll
+# static libsndfile.a
+LIBSTAT = -lsndfile
+# path to lib
+LIBPATH = -L./
+
+OBJ    = pulse_height_hist.o
+PROG   = pulse_height_hist.exe
+
+# build and link statically. include lib into exe
+# make -f Makefile.Windows static
+static:	$(OBJ)
+	$(CC) -static $(LIBPATH) $(OBJ) -o $(PROG) $(LIBSTAT)
+
+# build and link dynamically. requires lib during runtime.
+# make -f Makefile.Windows dynamic
+dynamic:	$(OBJ)
+	$(CC) $(LIBPATH) $(OBJ) -o $(PROG) $(LIBDYN)
+
+pulse_height_hist.o: pulse_height_hist.c
+	$(CC) $(CFLAGS) -c pulse_height_hist.c
+
+clean:
+	rm -f pulse_height_hist.exe $(OBJ)
+
