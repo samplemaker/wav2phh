@@ -1,9 +1,8 @@
 # Wav to pulse height histogram converter
 
-Wav2phh is a crude Qt frontend based audio/wav to pulse height histogram converter. It may be used to
-postprocess and generate a gamma spectrum from a scintillation counter wav record.
+Wav2phh is a Qt frontend based audio/wav to pulse height histogram converter. It may be used to postprocess and generate a gamma spectrum from a scintillation counter wav record.
 
-[Screenshot](https://github.com/samplemaker/audio2phh/tree/audio2phh_github/screenshots/audio2phh_in_action.png)
+[Screenshot](https://github.com/samplemaker/wav2phh/tree/wav2phh_github/screenshots/wav2phh_in_action.png)
 
 ## Software and system requirements
 
@@ -13,7 +12,7 @@ Wav2phh can be build for linux and windows. Prerequisites:
   * [g++ - Gnu Compiler Collection (Linux platform)][gcc]
   * [MinGW32 (Windows platform)][mingw]
 
-[QtHomepage]:  http://qt.digia.com/
+[QtHomepage]:  http://qt-project.org/
              "Qt aplication programming interface"
 [gcc]:       http://gcc.gnu.org/
              "GNU Compiler Collection"
@@ -22,7 +21,7 @@ Wav2phh can be build for linux and windows. Prerequisites:
 
 ## Building
 
-  * On linux systems with Qt5: Execute `/usr/bin/qmake-qt5 audio2phh.pro` and then type `make`
+  * On linux systems with Qt5: Execute `/usr/bin/qmake-qt5 wav2phh.pro` and then type `make`
   * Cross compilation on linux for 32bit executables for windows:
     * Create a new profile with `/usr/bin/i686-w64-mingw32-qmake-qt5 -project`. Add to your profile:  
       QT += widgets  
