@@ -10,27 +10,28 @@ Wav2phh can be build for linux and windows. Prerequisites:
 
   * [Qt API (Version 5)][QtHomepage]
   * [g++ - Gnu Compiler Collection (Linux platform)][gcc]
-  * [MinGW32 (Windows platform)][mingw]
 
-[QtHomepage]:  http://qt-project.org/
-             "Qt aplication programming interface"
+[QtHomepage]:  https://www.qt.io/developers/
+               "Qt aplication programming interface"
 [gcc]:       http://gcc.gnu.org/
              "GNU Compiler Collection"
-[mingw]:     http://www.mingw.org/
-             "Minimalist GNU for Windows"  
+
 
 ## Building
 
-  * On linux systems with Qt5: Execute `/usr/bin/qmake-qt5 wav2phh.pro` and then type `make`
-  * Cross compilation on linux for 32bit executables for windows:
-    * Create a new profile with `/usr/bin/i686-w64-mingw32-qmake-qt5 -project`. Add to your profile:  
-      QT += widgets  
-      QT += multimedia
-    * Create the makefile with `/usr/bin/i686-w64-mingw32-qmake-qt5`
-    * Compile and link with `make`
-  * On Windows: ???
-    * Install QT [Install QT for Windows](http://qt-project.org/doc/qt-5/windows-building.html)
-    * To compile the program proceed as on linux systems
+  * On Linux:
+    * Install the packages qt5-qtbase-devel and qt5-qtmultimedia-devel 
+    * Execute `/usr/bin/qmake-qt5 wav2phh.pro`
+    * Type `make`
+  * On Windows:
+    * Install Qt 5.6.2 for Windows 32-bit (MinGW 4.9.2, 1.0 GB) [qt-opensource-windows-x86-mingw492-5.6.2.exe](https://www.qt.io/download-open-source/)
+    * Building from within qtcreator:  
+      open `wav2phh.pro`  
+      press the "play button"
+    * Building from cmd line:  
+      Set the environment `set PATH=C:\Qt\Qt5.6.2\5.6\mingw49_32\bin;C:\Qt\Qt5.6.2\Tools\mingw492_32\bin;C:\Qt\Qt5.6.2\Tools\QtCreator\bin;C:32;C:`  
+      Type `qmake.exe -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile wav2phh.pro`  
+      Type `mingw32-make -f Makefile.Debug`
 
 
 ## Recommendations on sampling rate
