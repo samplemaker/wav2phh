@@ -38,15 +38,13 @@
 AudioInfo::AudioInfo(size_t numElements, size_t numPast, QObject *parent) :
      QThread(parent)
 {   
+
+    //it is striktly forbidden to write to these variables within other procedures
     maxBufPos = numElements - 1;
     numExtra = numPast;
     // todo: dont use heap allocated variables in a thread constructor. create it rather in run()
     ringBufData = new double[maxBufPos + 1]();
-    headPos = 0;
     softGain = 1.0;
-    numRecords = numExtra; //presume zeros for initialization
-    popPos = 1;
-    numProcessed = 0;
 }
 
 
@@ -209,7 +207,13 @@ void AudioInfo::run(){
  *
  **/
 void AudioInfo::decode()
-{    
+{
+    //these are locals which have to be reset not only during object initilizazion but also
+    //each time decode is called (e.g. the button is pressed twice)
+    size_t headPos = 0;
+    size_t numRecords = numExtra; //presume zeros for initialization
+    size_t popPos = 1;
+
     qRegisterMetaType<size_t>("size_t");
 
     const int channelBytes = m_fileFormat.sampleSize() / 8;
@@ -269,6 +273,7 @@ void AudioInfo::decode()
                 //qWarning() << "Thread calling sequence 1 (has to be DirectConnection)";
                 const float percentAct = 100.0 * (float)(accuCounts)/(float)(totalSamples);
                 emit audioDataReady(outBuffer, numElements, percentAct);
+
                 //qWarning() << "Thread calling sequence 3 (has to be DirectConnection)";
                 delete [] outBuffer;
 

@@ -53,11 +53,8 @@ private:
    QFile fileName;
    QAudioFormat m_fileFormat;
    quint64 m_headerLength;
-   size_t numRecords;
    size_t maxBufPos;
    size_t numExtra;
-   size_t headPos;
-   size_t popPos;
    double * ringBufData;
    double softGain;
    size_t numProcessed;
