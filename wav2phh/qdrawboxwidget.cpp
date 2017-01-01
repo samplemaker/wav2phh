@@ -110,9 +110,22 @@ void QDrawBoxWidget::drawHistogram(unsigned int * histogram, const unsigned int 
     /* peak stats */
     QString displayStr1 = QString::number(binMaxY);
     QString displayStr2 = QString::number(binMaxX);
-    unsigned int xptr = (unsigned int)((double)(maxx - 3*xMargin) * (double)(binMaxX) / (double)(numBins) ) + + xMargin;
+    unsigned int xptr = (unsigned int)((double)(maxx - 3*xMargin) * (double)(binMaxX) / (double)(numBins) ) + xMargin;
     paintToMap.setFont(QFont("times",10,QFont::Bold));
     paintToMap.drawText(xptr, yMargin, displayStr2 + '/' + displayStr1);
+
+    repaint();
+}
+
+
+void QDrawBoxWidget::drawReadyToGo(void)
+{
+    QPainter paintToMap(pixmap);
+    paintToMap.setBrush(Qt::darkBlue);
+    paintToMap.drawRect(0, 0, maxx, maxy);
+    paintToMap.setPen(QPen(Qt::white));
+    paintToMap.setFont(QFont("times",15,QFont::Bold));
+    paintToMap.drawText(23, maxy/2, QString("To start or stop the calculation press/unpress the green button!"));
 
     repaint();
 }

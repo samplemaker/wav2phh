@@ -180,7 +180,7 @@ void MainWindow::onActionOpenWavfile()
                               SIGNAL( decodeFinished() ),
                               this,
                               SLOT( onDecodeFinished()) );
-
+            ui->paintArea->drawReadyToGo();
         }
         else{
             QMessageBox msgBox;

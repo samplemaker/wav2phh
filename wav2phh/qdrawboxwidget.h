@@ -36,6 +36,7 @@ class QDrawBoxWidget : public QWidget
     public:
         QDrawBoxWidget(QWidget *parent);
         void drawLine(int x1,int y1,int x2,int y2);
+        void drawReadyToGo(void);
         // \todo: get the sizes from qtcreator over this->size() QSize
         // YOU HAVE TO ADJUST THESE SETTINGS IDENTICAL TO THOSE FROM QTCREATOR
         const static int maxx = 600;
