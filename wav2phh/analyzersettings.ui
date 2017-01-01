@@ -7,442 +7,484 @@
     <x>0</x>
     <y>0</y>
     <width>280</width>
-    <height>618</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>280</width>
-    <height>618</height>
+    <height>650</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>280</width>
-    <height>618</height>
+    <height>650</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="SpPLabel">
-     <property name="minimumSize">
-      <size>
-       <width>259</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Load Config #</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="2">
-    <widget class="QComboBox" name="SpPcomboBox">
-     <property name="minimumSize">
-      <size>
-       <width>259</width>
-       <height>31</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QLabel" name="BaselineNameLabel">
-     <property name="minimumSize">
-      <size>
-       <width>259</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Baseline Configuration</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="BLdiffThreshLabel">
-     <property name="minimumSize">
-      <size>
-       <width>142</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Differential Threshold</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QDoubleSpinBox" name="BLdiffThreshSpinBox">
-     <property name="minimumSize">
-      <size>
-       <width>111</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="decimals">
-      <number>3</number>
-     </property>
-     <property name="minimum">
-      <double>0.001000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>1.000000000000000</double>
-     </property>
-     <property name="singleStep">
-      <double>0.001000000000000</double>
-     </property>
-     <property name="value">
-      <double>0.001000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="BLabsThreshLabel">
-     <property name="minimumSize">
-      <size>
-       <width>142</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Absolute Threshold</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="QDoubleSpinBox" name="BLabsThreshSpinBox">
-     <property name="minimumSize">
-      <size>
-       <width>111</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="decimals">
-      <number>3</number>
-     </property>
-     <property name="minimum">
-      <double>0.001000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>1.000000000000000</double>
-     </property>
-     <property name="singleStep">
-      <double>0.001000000000000</double>
-     </property>
-     <property name="value">
-      <double>0.001000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="BLnumAvrgLabel">
-     <property name="minimumSize">
-      <size>
-       <width>142</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Num Average</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="QSpinBox" name="BLnumAvrgSpinBox">
-     <property name="minimumSize">
-      <size>
-       <width>111</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="minimum">
-      <number>1</number>
-     </property>
-     <property name="value">
-      <number>1</number>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0" colspan="2">
-    <widget class="QLabel" name="PulseNameLabel">
-     <property name="minimumSize">
-      <size>
-       <width>259</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Pulse Configuration</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
-    <widget class="QLabel" name="PTrigThreshLabel">
-     <property name="minimumSize">
-      <size>
-       <width>142</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Trigger Threshold</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="1">
-    <widget class="QDoubleSpinBox" name="PTrigThreshSpinBox">
-     <property name="minimumSize">
-      <size>
-       <width>111</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="decimals">
-      <number>3</number>
-     </property>
-     <property name="minimum">
-      <double>0.001000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>1.000000000000000</double>
-     </property>
-     <property name="singleStep">
-      <double>0.001000000000000</double>
-     </property>
-     <property name="value">
-      <double>0.001000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="0">
-    <widget class="QLabel" name="PminGlitchLabel">
-     <property name="minimumSize">
-      <size>
-       <width>142</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Min Glitchfilter</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="1">
-    <widget class="QSpinBox" name="PminGlitchSpinBox">
-     <property name="minimumSize">
-      <size>
-       <width>111</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="value">
-      <number>0</number>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="0">
-    <widget class="QLabel" name="PmaxGlitchLabel">
-     <property name="minimumSize">
-      <size>
-       <width>142</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Max Glitchfilter</string>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="1">
-    <widget class="QSpinBox" name="PmaxGlitchSpinBox">
-     <property name="minimumSize">
-      <size>
-       <width>111</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="value">
-      <number>0</number>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="0">
-    <widget class="QLabel" name="PIntrplntFactor">
-     <property name="minimumSize">
-      <size>
-       <width>142</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Interpolation Factor</string>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="1">
-    <widget class="QSpinBox" name="PIntrplntSpinBox">
-     <property name="minimumSize">
-      <size>
-       <width>111</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="minimum">
-      <number>1</number>
-     </property>
-     <property name="value">
-      <number>1</number>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="0">
-    <widget class="QLabel" name="PnumPastLabel">
-     <property name="minimumSize">
-      <size>
-       <width>142</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Num Past</string>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="1">
-    <widget class="QSpinBox" name="PnumPastSpinBox">
-     <property name="minimumSize">
-      <size>
-       <width>111</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="minimum">
-      <number>1</number>
-     </property>
-     <property name="value">
-      <number>1</number>
-     </property>
-    </widget>
-   </item>
-   <item row="12" column="0">
-    <widget class="QLabel" name="PNumKernelLabel">
-     <property name="minimumSize">
-      <size>
-       <width>142</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Filterkernel / Window</string>
-     </property>
-    </widget>
-   </item>
-   <item row="12" column="1">
-    <widget class="QSpinBox" name="PNumKernelSpinBox">
-     <property name="minimumSize">
-      <size>
-       <width>111</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="minimum">
-      <number>5</number>
-     </property>
-     <property name="value">
-      <number>5</number>
-     </property>
-    </widget>
-   </item>
-   <item row="13" column="0" colspan="2">
-    <widget class="QLabel" name="GenNameLabel">
-     <property name="minimumSize">
-      <size>
-       <width>259</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>General</string>
-     </property>
-    </widget>
-   </item>
-   <item row="14" column="0">
-    <widget class="QLabel" name="GenSoftGainLabel">
-     <property name="minimumSize">
-      <size>
-       <width>142</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Softgain Factor</string>
-     </property>
-    </widget>
-   </item>
-   <item row="14" column="1">
-    <widget class="QDoubleSpinBox" name="GenSoftGainSpinBox">
-     <property name="minimumSize">
-      <size>
-       <width>111</width>
-       <height>31</height>
-      </size>
-     </property>
-     <property name="decimals">
-      <number>1</number>
-     </property>
-     <property name="singleStep">
-      <double>0.100000000000000</double>
-     </property>
-     <property name="value">
-      <double>1.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="15" column="0" colspan="2">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="minimumSize">
-      <size>
-       <width>200</width>
-       <height>33</height>
-      </size>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-  </layout>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>9</y>
+     <width>263</width>
+     <height>627</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0" colspan="2">
+     <widget class="QLabel" name="SpPLabel">
+      <property name="minimumSize">
+       <size>
+        <width>259</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Load Config #</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QComboBox" name="SpPcomboBox">
+      <property name="minimumSize">
+       <size>
+        <width>259</width>
+        <height>31</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="2">
+     <widget class="QLabel" name="BaselineNameLabel">
+      <property name="minimumSize">
+       <size>
+        <width>259</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Baseline Configuration</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="BLdiffThreshLabel">
+      <property name="minimumSize">
+       <size>
+        <width>142</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Differential Threshold</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QDoubleSpinBox" name="BLdiffThreshSpinBox">
+      <property name="minimumSize">
+       <size>
+        <width>111</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="decimals">
+       <number>3</number>
+      </property>
+      <property name="minimum">
+       <double>0.001000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.001000000000000</double>
+      </property>
+      <property name="value">
+       <double>0.001000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="BLabsThreshLabel">
+      <property name="minimumSize">
+       <size>
+        <width>142</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Absolute Threshold</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QDoubleSpinBox" name="BLabsThreshSpinBox">
+      <property name="minimumSize">
+       <size>
+        <width>111</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="decimals">
+       <number>3</number>
+      </property>
+      <property name="minimum">
+       <double>0.001000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.001000000000000</double>
+      </property>
+      <property name="value">
+       <double>0.001000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="BLnumAvrgLabel">
+      <property name="minimumSize">
+       <size>
+        <width>142</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Num Average</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QSpinBox" name="BLnumAvrgSpinBox">
+      <property name="minimumSize">
+       <size>
+        <width>111</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="value">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="2">
+     <widget class="QLabel" name="PulseNameLabel">
+      <property name="minimumSize">
+       <size>
+        <width>259</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Pulse Configuration</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="PTrigThreshLabel">
+      <property name="minimumSize">
+       <size>
+        <width>142</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Trigger Threshold</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QDoubleSpinBox" name="PTrigThreshSpinBox">
+      <property name="minimumSize">
+       <size>
+        <width>111</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="decimals">
+       <number>3</number>
+      </property>
+      <property name="minimum">
+       <double>0.001000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.001000000000000</double>
+      </property>
+      <property name="value">
+       <double>0.001000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0">
+     <widget class="QLabel" name="PminGlitchLabel">
+      <property name="minimumSize">
+       <size>
+        <width>142</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Min Glitchfilter</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1">
+     <widget class="QSpinBox" name="PminGlitchSpinBox">
+      <property name="minimumSize">
+       <size>
+        <width>111</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0">
+     <widget class="QLabel" name="PmaxGlitchLabel">
+      <property name="minimumSize">
+       <size>
+        <width>142</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Max Glitchfilter</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="1">
+     <widget class="QSpinBox" name="PmaxGlitchSpinBox">
+      <property name="minimumSize">
+       <size>
+        <width>111</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="0">
+     <widget class="QLabel" name="PIntrplntFactor">
+      <property name="minimumSize">
+       <size>
+        <width>142</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Interpolation Factor</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="1">
+     <widget class="QSpinBox" name="PIntrplntSpinBox">
+      <property name="minimumSize">
+       <size>
+        <width>111</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="value">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0">
+     <widget class="QLabel" name="PnumPastLabel">
+      <property name="minimumSize">
+       <size>
+        <width>142</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Num Past</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="1">
+     <widget class="QSpinBox" name="PnumPastSpinBox">
+      <property name="minimumSize">
+       <size>
+        <width>111</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="value">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="0">
+     <widget class="QLabel" name="PNumKernelLabel">
+      <property name="minimumSize">
+       <size>
+        <width>142</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Filterkernel / Window</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="1">
+     <widget class="QSpinBox" name="PNumKernelSpinBox">
+      <property name="minimumSize">
+       <size>
+        <width>111</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="minimum">
+       <number>5</number>
+      </property>
+      <property name="value">
+       <number>5</number>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="0" colspan="2">
+     <widget class="QLabel" name="GenNameLabel">
+      <property name="minimumSize">
+       <size>
+        <width>259</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>General</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="0">
+     <widget class="QLabel" name="GenSoftGainLabel">
+      <property name="minimumSize">
+       <size>
+        <width>142</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Softgain Factor</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="1">
+     <widget class="QDoubleSpinBox" name="GenSoftGainSpinBox">
+      <property name="minimumSize">
+       <size>
+        <width>111</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="decimals">
+       <number>1</number>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="0">
+     <widget class="QLabel" name="GenNumBinsHistLabel">
+      <property name="minimumSize">
+       <size>
+        <width>142</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>NumBinsHist</string>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="1">
+     <widget class="QSpinBox" name="GenNumBinsHistSpinBox">
+      <property name="minimumSize">
+       <size>
+        <width>111</width>
+        <height>31</height>
+       </size>
+      </property>
+      <property name="minimum">
+       <number>10</number>
+      </property>
+      <property name="maximum">
+       <number>100000</number>
+      </property>
+      <property name="value">
+       <number>1024</number>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="0" colspan="2">
+     <widget class="QDialogButtonBox" name="buttonBox">
+      <property name="minimumSize">
+       <size>
+        <width>200</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="standardButtons">
+       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources/>
  <connections>

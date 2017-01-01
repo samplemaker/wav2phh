@@ -41,6 +41,7 @@ public:
     BaseLine * mBaseline;
     PulseEvent * mPulseEvent;
     double mSoftGain;
+    unsigned int mNumBinsHist;
     bool haveSettings;
 
 private slots:

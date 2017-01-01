@@ -57,11 +57,11 @@ class Analyzer : public QObject
     Q_OBJECT
 
 public:
-   explicit Analyzer(size_t extraSamples, BaseLine * baseline, PulseEvent * pulseEvent, QObject *parent = 0);
+   explicit Analyzer(unsigned int histResolution, size_t extraSamples, BaseLine * baseline, PulseEvent * pulseEvent, QObject *parent = 0);
    ~Analyzer();
    void reset(void);
    unsigned int * histogram;
-   const static unsigned int histResolution = 1024;
+   unsigned int histResolution;
    float percentOld;
 
 signals:

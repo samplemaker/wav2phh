@@ -35,6 +35,7 @@
 #define P_IPLN_FAC_DEFAULT 7
 #define P_WINDOW_SIZE_DEFAULT 15
 #define G_SOFT_GAIN_DEFAULT 1.0
+#define G_NUM_BINS_HIST_DEFAULT 1024
 
 
 enum USE_CASES {
@@ -62,6 +63,7 @@ AnalyzerSettings::AnalyzerSettings(QWidget *parent) :
     mPulseEvent->iplnFactor = P_IPLN_FAC_DEFAULT;
     mPulseEvent->windowSize = P_WINDOW_SIZE_DEFAULT;
     mSoftGain = G_SOFT_GAIN_DEFAULT;
+    mNumBinsHist = G_NUM_BINS_HIST_DEFAULT;
 
     /* set the initial setup to default after start up */
     ui->BLdiffThreshSpinBox->setValue(B_DIFF_TRESH_DEFAULT);
@@ -74,6 +76,7 @@ AnalyzerSettings::AnalyzerSettings(QWidget *parent) :
     ui->PIntrplntSpinBox->setValue(P_IPLN_FAC_DEFAULT);
     ui->PNumKernelSpinBox->setValue(P_WINDOW_SIZE_DEFAULT);
     ui->GenSoftGainSpinBox->setValue(G_SOFT_GAIN_DEFAULT);
+    ui->GenNumBinsHistSpinBox->setValue(G_NUM_BINS_HIST_DEFAULT);
 
     ui->SpPcomboBox->addItem(QString("6 Samples per Pulse"), QVariant(USE_6_SPP));
     ui->SpPcomboBox->addItem(QString("10 Samples per Pulse"), QVariant(USE_10_SPP));
@@ -99,6 +102,7 @@ void AnalyzerSettings::on_buttonBox_accepted()
     mPulseEvent->iplnFactor = ui->PIntrplntSpinBox->value();       /* number - 1 of intermediate interpolation points */
     mPulseEvent->windowSize = ui->PNumKernelSpinBox->value();      /* half the window size / convolution length of low pass filter */
     mSoftGain = ui->GenSoftGainSpinBox->value();              /* amplification factor */
+    mNumBinsHist = ui->GenNumBinsHistSpinBox->value();        /* number of bins in the Histogram */
 
     haveSettings = true;
 }
@@ -125,6 +129,7 @@ void AnalyzerSettings::onSpPcomboBoxIndexChanged(int index)
                 ui->PIntrplntSpinBox->setValue(P_IPLN_FAC_DEFAULT);
                 ui->PNumKernelSpinBox->setValue(P_WINDOW_SIZE_DEFAULT);
                 ui->GenSoftGainSpinBox->setValue(G_SOFT_GAIN_DEFAULT);
+                ui->GenNumBinsHistSpinBox->setValue(G_NUM_BINS_HIST_DEFAULT);
         break;
         case  USE_10_SPP:
                 ui->BLdiffThreshSpinBox->setValue(B_DIFF_TRESH_DEFAULT);
@@ -137,6 +142,7 @@ void AnalyzerSettings::onSpPcomboBoxIndexChanged(int index)
                 ui->PIntrplntSpinBox->setValue(7);
                 ui->PNumKernelSpinBox->setValue(22);
                 ui->GenSoftGainSpinBox->setValue(2.5);
+                ui->GenNumBinsHistSpinBox->setValue(G_NUM_BINS_HIST_DEFAULT);
         break;
         default:
                 /* poor mans fall through */

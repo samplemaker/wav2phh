@@ -34,9 +34,10 @@
 
 /* we need the QObject to implement signals and slots */
 /* extraSamples (repeated) accessed in the future and the past */
-Analyzer::Analyzer(size_t extraSamples, BaseLine * baseline, PulseEvent * pulseEvent, QObject *parent) : QObject(parent){
+Analyzer::Analyzer(unsigned int numBinsHist, size_t extraSamples, BaseLine * baseline, PulseEvent * pulseEvent, QObject *parent) : QObject(parent){
    mBaseline = baseline;
    mPulseEvent = pulseEvent;
+   histResolution = numBinsHist;
    mAvrg = new MovingAverage(mBaseline->numMAvrg);
    /* k-1 intermediate interpolation points with windowsize2 = 15 extra points used for interpolation */
    lti = new Interpolator(mPulseEvent->iplnFactor, mPulseEvent->windowSize);

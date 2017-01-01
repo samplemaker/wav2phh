@@ -55,8 +55,9 @@ MainWindow::MainWindow(QWidget *parent) :
     mPulseEvent = new PulseEvent();
     mBaseline = mAnalyzerSetting.mBaseline;
     mPulseEvent = mAnalyzerSetting.mPulseEvent;
+    unsigned int mNumBinsHist = mAnalyzerSetting.mNumBinsHist;
 
-    m_Analyzer  = new Analyzer(NUM_FUTUREPAST_RINGBUF, mBaseline, mPulseEvent);
+    m_Analyzer  = new Analyzer(mNumBinsHist, NUM_FUTUREPAST_RINGBUF, mBaseline, mPulseEvent);
 
     /*
     Qt::DirectConnection 1
@@ -207,6 +208,7 @@ void MainWindow::actionConfigFilter()
         m_audioInfo->resetSoftGain(mAnalyzerSetting.mSoftGain);
         mBaseline = mAnalyzerSetting.mBaseline;
         mPulseEvent = mAnalyzerSetting.mPulseEvent;
+        unsigned int mNumBinsHist = mAnalyzerSetting.mNumBinsHist;
 
         /* create a new Analyzer object and update all Analyzer signals and slots */
         QObject::disconnect(m_Analyzer,
@@ -219,7 +221,8 @@ void MainWindow::actionConfigFilter()
                           m_Analyzer,
                           SLOT( doHistogram(const double *, size_t, float)) );
         delete m_Analyzer;
-        m_Analyzer  = new Analyzer(NUM_FUTUREPAST_RINGBUF, mBaseline, mPulseEvent);
+
+        m_Analyzer  = new Analyzer(mNumBinsHist, NUM_FUTUREPAST_RINGBUF, mBaseline, mPulseEvent);
         QObject::connect(m_Analyzer,
                          SIGNAL( histogramReady(unsigned int *, const unsigned int, float) ),
                          ui->paintArea,
