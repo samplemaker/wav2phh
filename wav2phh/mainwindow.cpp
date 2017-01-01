@@ -291,8 +291,8 @@ void MainWindow::saveFile()
     if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
         QTextStream outPut(&file);
         for (size_t i = 0; i < m_Analyzer->histResolution; i++){
-            qWarning() << i + 1 << ";" << m_Analyzer->histogram[i];
-            outPut << i + 1 << ";" << m_Analyzer->histogram[i] << endl;
+            qWarning() << i + 1 << "\t" << m_Analyzer->histogram[i];
+            outPut << i + 1 << "\t" << m_Analyzer->histogram[i] << endl;
         }
         file.close();
     }else{
