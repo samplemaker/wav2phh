@@ -68,10 +68,22 @@ void QDrawBoxWidget::drawHistogram(unsigned int * histogram, const unsigned int 
     for (unsigned int i = 0; i < numBins; i ++){
         if (histogram[i] > binMaxY) { binMaxY = histogram[i]; binMaxX = i;}
     }
-    for (unsigned int i = 0; i < numBins; i ++){
-        unsigned int y = (unsigned int)((double)(maxy - 2*yMargin) * (double)(histogram[i]) / (double)(binMaxY) );
-        unsigned int x = (unsigned int)((double)(maxx - 3*xMargin) * (double)(i) / (double)(numBins) );
-        paintToMap.drawLine(x + xMargin, maxy - y - yMargin , x + xMargin, maxy - yMargin);
+
+    /* \TODO: Fixme: Draw the last point */
+    for (unsigned int i = 0; i < numBins - 1; i ++){
+        if (numBins < maxx){
+            /* histogram resolution less than display resolution */
+            unsigned int y1 = (unsigned int)((double)(maxy - 2*yMargin) * (double)(histogram[i]) / (double)(binMaxY) );
+            unsigned int x1 = (unsigned int)((double)(maxx - 3*xMargin) * (double)(i) / (double)(numBins) );
+            unsigned int x2 = (unsigned int)((double)(maxx - 3*xMargin) * (double)(i+1) / (double)(numBins) );
+            paintToMap.fillRect(x1 + xMargin, maxy - y1 - yMargin , x2 - x1, y1, Qt::red);
+        }
+        else{
+            /* histogram higher than display resolution */
+            unsigned int y = (unsigned int)((double)(maxy - 2*yMargin) * (double)(histogram[i]) / (double)(binMaxY) );
+            unsigned int x = (unsigned int)((double)(maxx - 3*xMargin) * (double)(i) / (double)(numBins) );
+            paintToMap.drawLine(x + xMargin, maxy - y - yMargin , x + xMargin, maxy - yMargin);
+        }
     }
 
     /* draw some graticule */
