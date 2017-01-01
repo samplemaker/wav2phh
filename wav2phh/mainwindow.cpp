@@ -161,6 +161,7 @@ void MainWindow::onActionOpenWavfile()
 
         }
         m_audioInfo  = new AudioInfo(NUM_ELEMENTS_RINGBUF, NUM_FUTUREPAST_RINGBUF, this);
+        m_audioInfo->resetSoftGain(mAnalyzerSetting.mSoftGain);
         if ( m_audioInfo->open(wavFile) ){
             ui->audioDeviceLabel->setText("Opened and ready to go!");
             connect(ui->recordButton, SIGNAL(clicked()), this, SLOT(recordButtonStartRec()));
@@ -237,9 +238,9 @@ void MainWindow::actionConfigFilter()
 void MainWindow::onActionAboutThis()
 {
     QMessageBox::about(this, tr("About this application"),
-                             tr("<p><b>Wav2phh</b> creates histograms from a " \
+                             tr("<p><b>Wav2phh</b> creates histograms from an " \
                              "audio wav file. <br> " \
-                             "V0.1-alpha (2014-08-29) by samplemaker. <br> " \
+                             "V0.2-alpha (2016-08-29) by samplemaker. <br> " \
                              "<a href=\"https://github.com/samplemaker/wav2phh/\">Visit at Github</a> </p>"));
 }
 
@@ -248,25 +249,25 @@ void MainWindow::onActionHelp()
 {
     QMessageBox::about(this, tr("Legend table"),
                        tr("<p><b>Differential Threshold</b>:<br>" \
-                          "acceptance threshold to supress volatile signals for baseline recognition<br>" \
+                          "baseline: ignore samples if the difference of two adjacent samples is greater than this value (noise supression)<br>" \
                           "<b>Absolute Threshold</b>:<br>" \
-                          "absolute threshold to recognize a valid baseline<br>" \
+                          "baseline: samples which are higher than this value are not recognized (noise supression)<br>" \
                           "<b>Num Average</b>:<br>" \
-                          "number of samples to consider for the baseline calculation<br>" \
+                          "baseline: total number of samples considered for baseline calculation (moving average)<br>" \
                           "<b>Trigger Threshold</b>:<br>" \
-                          "trigger threshold recognizing a pulse event<br>" \
+                          "pulse: samples with an excursion greater than this value from the baseline are recognized as a pulse<br>" \
                           "<b>Num Past</b>:<br>" \
-                          "extra samples taken from the past in the decoder task for pulse interpolation<br>" \
+                          "pulse: extra samples to the left and right of the pulse if a pulse event is cut out from the audio stream for futher processing <br>" \
                           "<b>Min Glitchfilter</b>:<br>" \
-                          "glitch filter minimum samplepoints per pulse<br>" \
+                          "events are only further processed if the number of samples per pulse lies within the glitch filter boundarys<br>" \
                           "<b>Max Glitchfilter</b>:<br>" \
-                          "dito<br>" \
+                          "events are only further processed if the number of samples per pulse lies within the glitch filter boundarys<br>" \
                           "<b>Interpolation Factor</b>:<br>" \
-                          "create number-1 of intermediate interpolation points<br>" \
+                          "upsampling for peak detection: create 'number-1' of intermediate interpolation points<br>" \
                           "<b>Window Size</b>:<br>" \
-                          "half the window size, convolution length of the low pass filter (method = sinus cardinalis with rectangular window)<br>" \
+                          "half the window size, convolution length of the low pass filter (sinus cardinalis with rectangular window)<br>" \
                           "<b>Soft Gain</b>:<br>" \
-                          "signal amplification factor</p>"));
+                          "factor to amplify or attenuate the audiostream before it is processed</p>"));
 }
 
 

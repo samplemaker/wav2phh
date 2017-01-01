@@ -64,8 +64,9 @@ void QDrawBoxWidget::drawHistogram(unsigned int * histogram, const unsigned int 
 
     paintToMap.setPen(QPen(Qt::red, 1));
     unsigned int binMaxY = 0;
+    unsigned int binMaxX = 0;
     for (unsigned int i = 0; i < numBins; i ++){
-        if (histogram[i] > binMaxY) { binMaxY = histogram[i];}
+        if (histogram[i] > binMaxY) { binMaxY = histogram[i]; binMaxX = i;}
     }
     for (unsigned int i = 0; i < numBins; i ++){
         unsigned int y = (unsigned int)((double)(maxy - 2*yMargin) * (double)(histogram[i]) / (double)(binMaxY) );
@@ -90,9 +91,16 @@ void QDrawBoxWidget::drawHistogram(unsigned int * histogram, const unsigned int 
         paintToMap.drawText(maxx/2 + maxx/4, 50, "Progress: Stopped");
     }
     else{
-        QString displayStr = QString::number(percent, 'f', 1);
+        QString displayStr = QString::number(percent, 'f', 0);
         paintToMap.drawText(maxx/2 + maxx/4, 50, "Progress: " + displayStr + '%');
     }
+
+    /* peak stats */
+    QString displayStr1 = QString::number(binMaxY);
+    QString displayStr2 = QString::number(binMaxX);
+    unsigned int xptr = (unsigned int)((double)(maxx - 3*xMargin) * (double)(binMaxX) / (double)(numBins) ) + + xMargin;
+    paintToMap.setFont(QFont("times",10,QFont::Bold));
+    paintToMap.drawText(xptr, yMargin, displayStr2 + '/' + displayStr1);
 
     repaint();
 }
