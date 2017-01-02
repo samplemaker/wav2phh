@@ -54,6 +54,7 @@ AnalyzerSettings::AnalyzerSettings(QWidget *parent) :
     mBaseline = new BaseLine();
     mPulseEvent = new PulseEvent();
 
+    /* set the initial setup to default after start up */
     mBaseline->diffThresh = B_DIFF_TRESH_DEFAULT;
     mBaseline->relThresh = B_REL_THRESH_DEFAULT;
     mBaseline->numMAvrg = B_NUM_AVRG_DEFAULT;
@@ -66,18 +67,18 @@ AnalyzerSettings::AnalyzerSettings(QWidget *parent) :
     mSoftGain = G_SOFT_GAIN_DEFAULT;
     mNumBinsHist = G_NUM_BINS_HIST_DEFAULT;
 
-    /* set the initial setup to default after start up */
-    ui->BLdiffThreshSpinBox->setValue(B_DIFF_TRESH_DEFAULT);
-    ui->BLabsThreshSpinBox->setValue(B_REL_THRESH_DEFAULT);
-    ui->BLnumAvrgSpinBox->setValue(B_NUM_AVRG_DEFAULT);
-    ui->PTrigThreshSpinBox->setValue(P_TRIG_THRESH_DEFAULT);
-    ui->PnumPastSpinBox->setValue(P_NUM_PAST_DEFAULT);
-    ui->PminGlitchSpinBox->setValue(P_MIN_GLITCH_DEFAULT);
-    ui->PmaxGlitchSpinBox->setValue(P_MAX_GLITCH_DEFAULT);
-    ui->PIntrplntSpinBox->setValue(P_IPLN_FAC_DEFAULT);
-    ui->PNumKernelSpinBox->setValue(P_WINDOW_SIZE_DEFAULT);
-    ui->GenSoftGainSpinBox->setValue(G_SOFT_GAIN_DEFAULT);
-    ui->GenNumBinsHistSpinBox->setValue(G_NUM_BINS_HIST_DEFAULT);
+    /* and play back the internal variables to the gui */
+    ui->BLdiffThreshSpinBox->setValue(mBaseline->diffThresh);
+    ui->BLabsThreshSpinBox->setValue(mBaseline->relThresh);
+    ui->BLnumAvrgSpinBox->setValue(mBaseline->numMAvrg);
+    ui->PTrigThreshSpinBox->setValue(mPulseEvent->trigThresh);
+    ui->PnumPastSpinBox->setValue(mPulseEvent->numPast);
+    ui->PminGlitchSpinBox->setValue(mPulseEvent->minGlitchFilter);
+    ui->PmaxGlitchSpinBox->setValue(mPulseEvent->maxGlitchFilter);
+    ui->PIntrplntSpinBox->setValue(mPulseEvent->iplnFactor);
+    ui->PNumKernelSpinBox->setValue(mPulseEvent->windowSize);
+    ui->GenSoftGainSpinBox->setValue(mSoftGain);
+    ui->GenNumBinsHistSpinBox->setValue(mNumBinsHist);
 
     ui->SpPcomboBox->addItem(QString("Load Config #"), QVariant(LOAD));
     ui->SpPcomboBox->addItem(QString("6 Samples per Pulse"), QVariant(USE_6_SPP));
@@ -112,7 +113,8 @@ void AnalyzerSettings::on_buttonBox_accepted()
 void AnalyzerSettings::on_buttonBox_rejected()
 {
     /* Cancel button pressed */
-    /* But there may be changes - so load back the internal data into the gui */
+    /* But there may be changes in the gui settings - so load back the internal data into the gui */
+    /* keep everything synchronized */
     ui->BLdiffThreshSpinBox->setValue(mBaseline->diffThresh);
     ui->BLabsThreshSpinBox->setValue(mBaseline->relThresh);
     ui->BLnumAvrgSpinBox->setValue(mBaseline->numMAvrg);

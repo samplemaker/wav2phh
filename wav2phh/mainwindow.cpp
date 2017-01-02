@@ -82,6 +82,7 @@ MainWindow::MainWindow(QWidget *parent) :
     /* before changes on the Analyzer are allowed a wav file has to be selected and a AudioInfo has to be created */
     ui->menu_Configure->setDisabled(true);
     ui->recordButton->setCheckable(false);
+    ui->audioDeviceLabel->setText("No wav file loaded");
 }
 
 
@@ -92,6 +93,7 @@ MainWindow::~MainWindow()
 
 
 void MainWindow::onDecodeFinished(){
+    qWarning() << "onDecodeFinished";
     ui->paintArea->drawHistogram(m_Analyzer->histogram, m_Analyzer->histResolution, 100.0);
     ui->menu_Configure->setEnabled(true);
     ui->menu_File->setEnabled(true);
@@ -164,7 +166,7 @@ void MainWindow::onActionOpenWavfile()
         m_audioInfo  = new AudioInfo(NUM_ELEMENTS_RINGBUF, NUM_FUTUREPAST_RINGBUF, this);
         m_audioInfo->resetSoftGain(mAnalyzerSetting.mSoftGain);
         if ( m_audioInfo->open(wavFile) ){
-            ui->audioDeviceLabel->setText("Opened and ready to go!");
+            ui->audioDeviceLabel->setText("Wav file opened");
             connect(ui->recordButton, SIGNAL(clicked()), this, SLOT(recordButtonStartRec()));
             m_Analyzer->reset();
             ui->recordButton->setCheckable(true);
@@ -187,7 +189,7 @@ void MainWindow::onActionOpenWavfile()
             msgBox.setText("Unknown format: 16bit, 1 channel, SignedInt - WAV only!");
             msgBox.exec();
             ui->menu_Configure->setDisabled(true);
-            ui->audioDeviceLabel->setText("None");
+            ui->audioDeviceLabel->setText("No wav file loaded");
             disconnect(ui->recordButton, SIGNAL(clicked()), this, SLOT(recordButtonStartRec()));
             ui->recordButton->setCheckable(false);
             delete m_audioInfo;
@@ -202,8 +204,7 @@ void MainWindow::actionConfigFilter()
     mAnalyzerSetting.exec();
 
     if (mAnalyzerSetting.haveSettings){
-        qWarning() << "Calling m_audioInfo->resetSoftGain()";
-        qWarning() << "Delete & reinstall m_Analyzer";
+        qWarning() << "actionConfigFilter: have new settings";
         /* note that analyzer config is only accessable if an audioinfo object exists */
         m_audioInfo->resetSoftGain(mAnalyzerSetting.mSoftGain);
         mBaseline = mAnalyzerSetting.mBaseline;
