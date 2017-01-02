@@ -30,7 +30,7 @@
 #define B_NUM_AVRG_DEFAULT 20
 #define P_TRIG_THRESH_DEFAULT 0.015
 #define P_NUM_PAST_DEFAULT 5
-#define P_MIN_GLITCH_DEFAULT 2
+#define P_MIN_GLITCH_DEFAULT 1
 #define P_MAX_GLITCH_DEFAULT 10
 #define P_IPLN_FAC_DEFAULT 7
 #define P_WINDOW_SIZE_DEFAULT 15
@@ -41,6 +41,8 @@
 enum USE_CASES {
     LOAD,
     USE_6_SPP,
+    USE_6_SPP_HI_SUPR,
+    USE_6_SPP_HI_GAIN,
     USE_10_SPP
 };
 
@@ -54,7 +56,7 @@ AnalyzerSettings::AnalyzerSettings(QWidget *parent) :
     mBaseline = new BaseLine();
     mPulseEvent = new PulseEvent();
 
-    /* set the initial setup to default after start up */
+    /* set the initial setup to default (USE_6_SPP) after start up */
     mBaseline->diffThresh = B_DIFF_TRESH_DEFAULT;
     mBaseline->relThresh = B_REL_THRESH_DEFAULT;
     mBaseline->numMAvrg = B_NUM_AVRG_DEFAULT;
@@ -81,8 +83,10 @@ AnalyzerSettings::AnalyzerSettings(QWidget *parent) :
     ui->GenNumBinsHistSpinBox->setValue(mNumBinsHist);
 
     ui->SpPcomboBox->addItem(QString("Load Config #"), QVariant(LOAD));
-    ui->SpPcomboBox->addItem(QString("6 Samples per Pulse"), QVariant(USE_6_SPP));
-    ui->SpPcomboBox->addItem(QString("10 Samples per Pulse"), QVariant(USE_10_SPP));
+    ui->SpPcomboBox->addItem(QString("6 Samples/Pulse (default)"), QVariant(USE_6_SPP));
+    ui->SpPcomboBox->addItem(QString("6 Samples/Pulse (high supression)"), QVariant(USE_6_SPP_HI_SUPR));
+    ui->SpPcomboBox->addItem(QString("6 Samples/Pulse (high gain)"), QVariant(USE_6_SPP_HI_GAIN));
+    ui->SpPcomboBox->addItem(QString("10 Samples/Pulse"), QVariant(USE_10_SPP));
 
     connect(ui->SpPcomboBox, SIGNAL( activated(int) ), this, SLOT( onSpPcomboBoxNewSettings(int) ) );
 }
@@ -149,17 +153,44 @@ void AnalyzerSettings::onSpPcomboBoxNewSettings(int index)
                 ui->GenSoftGainSpinBox->setValue(G_SOFT_GAIN_DEFAULT);
                 ui->GenNumBinsHistSpinBox->setValue(G_NUM_BINS_HIST_DEFAULT);
         break;
+        case  USE_6_SPP_HI_SUPR:
+                ui->BLdiffThreshSpinBox->setValue(B_DIFF_TRESH_DEFAULT);
+                ui->BLabsThreshSpinBox->setValue(B_REL_THRESH_DEFAULT);
+                ui->BLnumAvrgSpinBox->setValue(B_NUM_AVRG_DEFAULT);
+                ui->PTrigThreshSpinBox->setValue(P_TRIG_THRESH_DEFAULT);
+                ui->PnumPastSpinBox->setValue(P_NUM_PAST_DEFAULT);
+                ui->PminGlitchSpinBox->setValue(2);
+                ui->PmaxGlitchSpinBox->setValue(P_MAX_GLITCH_DEFAULT);
+                ui->PIntrplntSpinBox->setValue(P_IPLN_FAC_DEFAULT);
+                ui->PNumKernelSpinBox->setValue(P_WINDOW_SIZE_DEFAULT);
+                ui->GenSoftGainSpinBox->setValue(G_SOFT_GAIN_DEFAULT);
+                ui->GenNumBinsHistSpinBox->setValue(G_NUM_BINS_HIST_DEFAULT);
+        break;
+        case  USE_6_SPP_HI_GAIN:
+                #define SPPHIGAIN 3.0
+                ui->BLdiffThreshSpinBox->setValue(SPPHIGAIN*B_DIFF_TRESH_DEFAULT);
+                ui->BLabsThreshSpinBox->setValue(SPPHIGAIN*B_REL_THRESH_DEFAULT);
+                ui->BLnumAvrgSpinBox->setValue(B_NUM_AVRG_DEFAULT);
+                ui->PTrigThreshSpinBox->setValue(SPPHIGAIN*P_TRIG_THRESH_DEFAULT);
+                ui->PnumPastSpinBox->setValue(P_NUM_PAST_DEFAULT);
+                ui->PminGlitchSpinBox->setValue(P_MIN_GLITCH_DEFAULT);
+                ui->PmaxGlitchSpinBox->setValue(P_MAX_GLITCH_DEFAULT);
+                ui->PIntrplntSpinBox->setValue(P_IPLN_FAC_DEFAULT);
+                ui->PNumKernelSpinBox->setValue(P_WINDOW_SIZE_DEFAULT);
+                ui->GenSoftGainSpinBox->setValue(SPPHIGAIN);
+                ui->GenNumBinsHistSpinBox->setValue(G_NUM_BINS_HIST_DEFAULT);
+        break;
         case  USE_10_SPP:
                 ui->BLdiffThreshSpinBox->setValue(B_DIFF_TRESH_DEFAULT);
                 ui->BLabsThreshSpinBox->setValue(B_REL_THRESH_DEFAULT);
                 ui->BLnumAvrgSpinBox->setValue(B_NUM_AVRG_DEFAULT);
-                ui->PTrigThreshSpinBox->setValue(0.025);
+                ui->PTrigThreshSpinBox->setValue(P_TRIG_THRESH_DEFAULT);
                 ui->PnumPastSpinBox->setValue(8);
                 ui->PminGlitchSpinBox->setValue(P_MIN_GLITCH_DEFAULT);
                 ui->PmaxGlitchSpinBox->setValue(25);
                 ui->PIntrplntSpinBox->setValue(7);
                 ui->PNumKernelSpinBox->setValue(22);
-                ui->GenSoftGainSpinBox->setValue(2.5);
+                ui->GenSoftGainSpinBox->setValue(G_SOFT_GAIN_DEFAULT);
                 ui->GenNumBinsHistSpinBox->setValue(G_NUM_BINS_HIST_DEFAULT);
         break;
         default:
