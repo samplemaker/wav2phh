@@ -281,9 +281,9 @@ void MainWindow::onActionSaveHistogram()
                 this,
                 "Save as",
                 "./",
-                "Text Files (*.txt);;All Files (*.*)");
+                "csv Files (*.csv);;All Files (*.*)");
     if (!fileName.isEmpty()){
-        fileToSave = fileName;
+        fileToSave = fileName + ".csv";
         saveFile();
     }
 }
@@ -295,8 +295,8 @@ void MainWindow::saveFile()
     if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
         QTextStream outPut(&file);
         for (size_t i = 0; i < m_Analyzer->histResolution; i++){
-            qWarning() << i + 1 << "\t" << m_Analyzer->histogram[i];
-            outPut << i + 1 << "\t" << m_Analyzer->histogram[i] << endl;
+            qWarning() << i << "\t" << m_Analyzer->histogram[i];
+            outPut << i << "\t" << m_Analyzer->histogram[i] << endl;
         }
         file.close();
     }else{
