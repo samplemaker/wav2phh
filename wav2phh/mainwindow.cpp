@@ -283,7 +283,7 @@ void MainWindow::onActionSaveHistogram()
                 "./",
                 "csv Files (*.csv);;All Files (*.*)");
     if (!fileName.isEmpty()){
-        fileToSave = fileName + ".csv";
+        fileToSave = fileName;
         saveFile();
     }
 }
