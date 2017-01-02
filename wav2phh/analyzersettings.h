@@ -47,7 +47,7 @@ public:
 private slots:
     void on_buttonBox_accepted();
     void on_buttonBox_rejected();
-    void onSpPcomboBoxIndexChanged(int index);
+    void onSpPcomboBoxNewSettings(int index);
 
 private:
     Ui::AnalyzerSettings *ui;

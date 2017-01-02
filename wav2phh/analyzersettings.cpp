@@ -39,6 +39,7 @@
 
 
 enum USE_CASES {
+    LOAD,
     USE_6_SPP,
     USE_10_SPP
 };
@@ -78,10 +79,11 @@ AnalyzerSettings::AnalyzerSettings(QWidget *parent) :
     ui->GenSoftGainSpinBox->setValue(G_SOFT_GAIN_DEFAULT);
     ui->GenNumBinsHistSpinBox->setValue(G_NUM_BINS_HIST_DEFAULT);
 
+    ui->SpPcomboBox->addItem(QString("Load Config #"), QVariant(LOAD));
     ui->SpPcomboBox->addItem(QString("6 Samples per Pulse"), QVariant(USE_6_SPP));
     ui->SpPcomboBox->addItem(QString("10 Samples per Pulse"), QVariant(USE_10_SPP));
 
-    connect(ui->SpPcomboBox, SIGNAL( currentIndexChanged(int) ), this, SLOT( onSpPcomboBoxIndexChanged(int) ) );
+    connect(ui->SpPcomboBox, SIGNAL( activated(int) ), this, SLOT( onSpPcomboBoxNewSettings(int) ) );
 }
 
 AnalyzerSettings::~AnalyzerSettings()
@@ -109,11 +111,25 @@ void AnalyzerSettings::on_buttonBox_accepted()
 
 void AnalyzerSettings::on_buttonBox_rejected()
 {
+    /* Cancel button pressed */
+    /* But there may be changes - so load back the internal data into the gui */
+    ui->BLdiffThreshSpinBox->setValue(mBaseline->diffThresh);
+    ui->BLabsThreshSpinBox->setValue(mBaseline->relThresh);
+    ui->BLnumAvrgSpinBox->setValue(mBaseline->numMAvrg);
+    ui->PTrigThreshSpinBox->setValue(mPulseEvent->trigThresh);
+    ui->PnumPastSpinBox->setValue(mPulseEvent->numPast);
+    ui->PminGlitchSpinBox->setValue(mPulseEvent->minGlitchFilter);
+    ui->PmaxGlitchSpinBox->setValue(mPulseEvent->maxGlitchFilter);
+    ui->PIntrplntSpinBox->setValue(mPulseEvent->iplnFactor);
+    ui->PNumKernelSpinBox->setValue(mPulseEvent->windowSize);
+    ui->GenSoftGainSpinBox->setValue(mSoftGain);
+    ui->GenNumBinsHistSpinBox->setValue(mNumBinsHist);
+
     haveSettings = false;
 }
 
 /* selecetion on samples per pulse combobox */
-void AnalyzerSettings::onSpPcomboBoxIndexChanged(int index)
+void AnalyzerSettings::onSpPcomboBoxNewSettings(int index)
 {
     qWarning() << "selected configuration" << index;
     switch( index ) {
@@ -148,4 +164,6 @@ void AnalyzerSettings::onSpPcomboBoxIndexChanged(int index)
                 /* poor mans fall through */
         break;
     }
+    /* reset the combobox to its default state "load" */
+    ui->SpPcomboBox->setCurrentIndex(LOAD);
 }
