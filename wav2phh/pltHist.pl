@@ -56,7 +56,7 @@ SWITCH: {
                       };
   #default fall through: if there are too much or too less arguments we look for the newest file
   opendir DIR, $datadir or die "Plot utility: $datadir cannot be read: $!";
-  map { $plotfile1 = $_ } grep { /\.dat/ and -f } sort readdir DIR;
+  map { $plotfile1 = $_ } grep { /\.csv/ and -f } sort readdir DIR;
   print "Plotting file with last timestamp: $plotfile1 \n";
   $numplotmode = 1;
 }
@@ -67,7 +67,7 @@ syswrite(GP, "load 'pltOptions.plt' \n");
 
 SWITCH: {
   #single plot (one file)
-  $numplotmode == 1 && do {  syswrite(GP, "plot \"$plotfile1\" using 1:2 with lines title \"test\" \n");
+  $numplotmode == 1 && do {  syswrite(GP, "plot \"$plotfile1\" using 1:2 with boxes title \"test\" \n");
                              last SWITCH;
                           };
   #double plot (two files at one time)
