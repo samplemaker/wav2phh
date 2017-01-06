@@ -74,6 +74,7 @@ private:
    double doBaseline (double n0, double n1);
    double baseLine;
    size_t numExtra;
+   signed long lastPos;
    MovingAverage * mAvrg;
    BaseLine * mBaseline;
    PulseEvent * mPulseEvent;

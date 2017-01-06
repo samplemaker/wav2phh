@@ -46,6 +46,7 @@ Analyzer::Analyzer(unsigned int numBinsHist, size_t extraSamples, BaseLine * bas
     * you have to ensure that numExtra is larger than numPast and future samples which
     * may occur due to a pulse event */
    numExtra = extraSamples;
+   lastPos = 4096 - numExtra;
    mBaseline->value = 0;
    percentOld = 0;
 }
@@ -58,7 +59,14 @@ Analyzer::~Analyzer()
 void Analyzer::doHistogram(const double *dataStream, size_t len, float percent)
 {
   //qWarning() << "Thread calling sequence 2 (slot) (has to be DirectConnection)";
-  size_t m = numExtra;
+  //in the last sequence we ended at m = lastPos ind the dataStream
+  //so in the next cycle we have to adjust our pointer to
+  size_t m = lastPos - (len-numExtra) + numExtra;
+  /*qWarning() << "lastpos " << lastPos;
+  qWarning() << "len " << len;
+  qWarning() << "numExtra " << numExtra;
+  qWarning() << "m " << m;*/
+
   while (m < len - numExtra){
 
        const double n0 = dataStream[m];
@@ -151,6 +159,7 @@ void Analyzer::doHistogram(const double *dataStream, size_t len, float percent)
          m ++;
        }
     }
+  lastPos = m;
     /* only update on each percent */
     if (percent - percentOld > 1.0){
         percentOld = percent;
