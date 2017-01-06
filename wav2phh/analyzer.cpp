@@ -48,7 +48,7 @@ Analyzer::Analyzer(unsigned int numBinsHist, size_t extraSamples,size_t bufLen_,
     * may occur due to a pulse event */
    bufLen = bufLen_;
    numExtra = extraSamples;
-   lastPos = bufLen - numExtra;
+   lastPos = (bufLen-numExtra); /* start m = 0 */
    mBaseline->value = 0;
    percentOld = 0;
 #ifdef WRITEDATATOFILE
@@ -70,7 +70,7 @@ void Analyzer::doHistogram(const double *dataStream, size_t len, float percent)
   //in the last sequence we ended at m = lastPos ind the dataStream
   //so in the next cycle we have to adjust our pointer to
 
-  // \TODO: can this get less than zero?????
+  //TODO ensure that only packest with NUM_ELEMENTS_RINGBUF length are coming
   size_t m = lastPos - (bufLen-numExtra);
 
   /*qWarning() << "lastpos " << lastPos;
@@ -207,4 +207,5 @@ void Analyzer::reset(void) {
   memset (histogram, 0, sizeof(histogram[0])*(histResolution + 1) );
   mBaseline->value = 0;
   percentOld = 0;
+  lastPos = (bufLen-numExtra); /* start m = 0 */
 }
