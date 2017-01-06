@@ -30,6 +30,7 @@
 
 #include "audioinput.h"
 
+//#define WRITEDATATOFILE 1
 
 /* Gets audio info, puts it into a ringbuffer and organizes the output (see below)
  * numElements: The number of values sent per incident to the output signal
@@ -208,6 +209,12 @@ void AudioInfo::run(){
  **/
 void AudioInfo::decode()
 {
+
+#ifdef WRITEDATATOFILE
+    FILE * fp;
+    fp = fopen ("audio.txt", "w");
+#endif
+
     //these are locals which have to be reset not only during object initilizazion but also
     //each time decode is called (e.g. the button is pressed twice)
     size_t headPos = 0;
@@ -238,6 +245,9 @@ void AudioInfo::decode()
             accuCounts++;
             //if (m_fileFormat.sampleSize() == 16) {
             rawValue =  fact_16Bit_INT * (double)(qFromLittleEndian<qint16>((uchar*)ptr));
+#ifdef WRITEDATATOFILE
+   fprintf(fp, "%f\n", rawValue);
+#endif
             ptr += channelBytes;
             double value = softGain * rawValue;
             //printf("%f,\n", rawValue);
@@ -294,4 +304,7 @@ void AudioInfo::decode()
         if(this->m_abort) break;
     }
     delete [] blckPtr;
+#ifdef WRITEDATATOFILE
+ fclose(fp);
+#endif
 }

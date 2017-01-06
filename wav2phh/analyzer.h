@@ -57,7 +57,7 @@ class Analyzer : public QObject
     Q_OBJECT
 
 public:
-   explicit Analyzer(unsigned int histResolution, size_t extraSamples, BaseLine * baseline, PulseEvent * pulseEvent, QObject *parent = 0);
+   explicit Analyzer(unsigned int histResolution, size_t extraSamples, size_t bufLen,  BaseLine * baseline, PulseEvent * pulseEvent, QObject *parent = 0);
    ~Analyzer();
    void reset(void);
    unsigned int * histogram;
@@ -74,11 +74,13 @@ private:
    double doBaseline (double n0, double n1);
    double baseLine;
    size_t numExtra;
+   size_t bufLen;
    signed long lastPos;
    MovingAverage * mAvrg;
    BaseLine * mBaseline;
    PulseEvent * mPulseEvent;
    Interpolator * lti;
+   FILE * fp;
 };
 
 

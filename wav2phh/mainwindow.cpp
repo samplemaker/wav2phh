@@ -57,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mPulseEvent = mAnalyzerSetting.mPulseEvent;
     unsigned int mNumBinsHist = mAnalyzerSetting.mNumBinsHist;
 
-    m_Analyzer  = new Analyzer(mNumBinsHist, NUM_FUTUREPAST_RINGBUF, mBaseline, mPulseEvent);
+    m_Analyzer  = new Analyzer(mNumBinsHist, NUM_FUTUREPAST_RINGBUF,NUM_ELEMENTS_RINGBUF, mBaseline, mPulseEvent);
 
     /*
     Qt::DirectConnection 1
@@ -223,7 +223,7 @@ void MainWindow::actionConfigFilter()
                           SLOT( doHistogram(const double *, size_t, float)) );
         delete m_Analyzer;
 
-        m_Analyzer  = new Analyzer(mNumBinsHist, NUM_FUTUREPAST_RINGBUF, mBaseline, mPulseEvent);
+        m_Analyzer  = new Analyzer(mNumBinsHist, NUM_FUTUREPAST_RINGBUF, NUM_ELEMENTS_RINGBUF,mBaseline, mPulseEvent);
         QObject::connect(m_Analyzer,
                          SIGNAL( histogramReady(unsigned int *, const unsigned int, float) ),
                          ui->paintArea,

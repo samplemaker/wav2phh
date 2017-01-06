@@ -31,10 +31,11 @@
 
 #define d2i(x) ((x)<0?(int)((x)-0.5):(int)((x)+0.5))
 
+//#define WRITEDATATOFILE 1
 
 /* we need the QObject to implement signals and slots */
 /* extraSamples (repeated) accessed in the future and the past */
-Analyzer::Analyzer(unsigned int numBinsHist, size_t extraSamples, BaseLine * baseline, PulseEvent * pulseEvent, QObject *parent) : QObject(parent){
+Analyzer::Analyzer(unsigned int numBinsHist, size_t extraSamples,size_t bufLen_, BaseLine * baseline, PulseEvent * pulseEvent, QObject *parent) : QObject(parent){
    mBaseline = baseline;
    mPulseEvent = pulseEvent;
    histResolution = numBinsHist;
@@ -45,15 +46,22 @@ Analyzer::Analyzer(unsigned int numBinsHist, size_t extraSamples, BaseLine * bas
    /* redundant extra samples in past & future as per configuration of the ringbuffer
     * you have to ensure that numExtra is larger than numPast and future samples which
     * may occur due to a pulse event */
+   bufLen = bufLen_;
    numExtra = extraSamples;
-   lastPos = 4096 - numExtra;
+   lastPos = bufLen - numExtra;
    mBaseline->value = 0;
    percentOld = 0;
+#ifdef WRITEDATATOFILE
+   fp = fopen ("analyzer.txt", "w");
+#endif
 }
 
 Analyzer::~Analyzer()
 {
  delete[] histogram;
+ #ifdef WRITEDATATOFILE 
+   fclose(fp);
+ #endif
 }
 
 void Analyzer::doHistogram(const double *dataStream, size_t len, float percent)
@@ -61,13 +69,23 @@ void Analyzer::doHistogram(const double *dataStream, size_t len, float percent)
   //qWarning() << "Thread calling sequence 2 (slot) (has to be DirectConnection)";
   //in the last sequence we ended at m = lastPos ind the dataStream
   //so in the next cycle we have to adjust our pointer to
-  size_t m = lastPos - (len-numExtra) + numExtra;
+
+  // \TODO: can this get less than zero?????
+  size_t m = lastPos - (bufLen-numExtra);
+
   /*qWarning() << "lastpos " << lastPos;
   qWarning() << "len " << len;
   qWarning() << "numExtra " << numExtra;
-  qWarning() << "m " << m;*/
+  qWarning() << "m " << m;
+  printf("press <enter> to continue ...\n\r");
+  getchar();*/
 
-  while (m < len - numExtra){
+
+  while (m < bufLen - numExtra){
+
+#ifdef WRITEDATATOFILE
+  fprintf(fp, "%f\n", dataStream[m]);
+#endif
 
        const double n0 = dataStream[m];
        const double n1 = dataStream[m + 1];
@@ -81,7 +99,10 @@ void Analyzer::doHistogram(const double *dataStream, size_t len, float percent)
           * mPulseEvent->maxGlitchFilter  */
          while ((dataStream[m] < dataStream[m + 1])){
             m ++;
-            if (m >= len - 1){
+#ifdef WRITEDATATOFILE
+  fprintf(fp, "%f\n", dataStream[m]);
+#endif
+            if (m >= bufLen - 1){
               qWarning() << "input buffer to small due to search peak " << m;
               //exit(1);
             }
@@ -89,7 +110,7 @@ void Analyzer::doHistogram(const double *dataStream, size_t len, float percent)
          /* get stop position := start+2*(peakpos-start) */
 // \todo increase stop + 1
          const size_t stop = m + m - start;
-         if (stop >= len - 1){
+         if (stop >= bufLen - 1){
            qWarning() << "input buffer to small due to stop pos" << stop;
            //exit(1);
          }
@@ -100,7 +121,7 @@ void Analyzer::doHistogram(const double *dataStream, size_t len, float percent)
          /* skip glitches */
          if ((pulseWidth > mPulseEvent->minGlitchFilter) &&
             (pulseWidth < mPulseEvent->maxGlitchFilter)) {
-             m = stop;
+ //            m = stop;
              unsigned int numDst = mPulseEvent->iplnFactor * (numSrc - 1) + 1;
              double * peakBuffer = new double[numDst + 1];
              lti->upsample(dataStream + start, peakBuffer, numSrc, 0);
